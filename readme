@@ -1,0 +1,48 @@
+# Sistema de Gerenciamento de Restaurante
+
+Este projeto contém um banco de dados MySQL para gerenciar clientes, mesas, pedidos e itens de pedido em um restaurante.
+
+## Estrutura do Banco de Dados
+
+O banco de dados é composto pelas seguintes tabelas:
+
+- **clientes**: Armazena informações sobre os clientes.
+  - `clienteID`: ID único do cliente.
+  - `nome`: Nome do cliente.
+  - `telefone`: Telefone do cliente.
+  - `email`: E-mail do cliente.
+
+- **mesas**: Contém informações sobre as mesas.
+  - `mesaID`: ID único da mesa.
+  - `numero_mesa`: Número da mesa.
+  - `capacidade`: Capacidade da mesa.
+
+- **pedidos**: Registra os pedidos feitos pelos clientes.
+  - `pedidoID`: ID único do pedido.
+  - `cliente_id`: ID do cliente que fez o pedido.
+  - `mesa_id`: ID da mesa onde o pedido foi feito.
+  - `data_pedido`: Data e hora do pedido.
+  - `total`: Total do pedido.
+
+- **itens_pedido**: Detalha os itens de cada pedido.
+  - `itemID`: ID único do item.
+  - `pedidoID`: ID do pedido ao qual o item pertence.
+  - `descricao`: Descrição do item.
+  - `quantidade`: Quantidade do item.
+  - `preco`: Preço do item.
+
+## Como Usar
+
+1. **Criar o Banco de Dados**: Execute o script SQL para criar o banco de dados e as tabelas.
+2. **Inserir Dados**: Execute os comandos de inserção para adicionar registros de exemplo.
+3. **Consultar Dados**: Utilize as consultas SQL fornecidas para visualizar os registros.
+4. **Atualizar Dados**: Modifique informações de clientes e mesas conforme necessário.
+5. **Excluir Dados**: Exclua pedidos e itens relacionados conforme necessário.
+
+## Dependências
+
+- MySQL
+
+## Licença
+
+Este projeto é de uso livre. Sinta-se à vontade para modificá-lo conforme necessário.
