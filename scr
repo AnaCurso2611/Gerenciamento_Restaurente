@@ -1,0 +1,105 @@
+drop DATABASE restaurante;
+CREATE DATABASE restaurante;
+USE restaurante;
+
+CREATE TABLE clientes (
+    clienteID INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    telefone VARCHAR(15) NOT NULL,
+    email VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE mesas (
+    mesaID INT AUTO_INCREMENT PRIMARY KEY,
+    numero_mesa INT NOT NULL,
+    capacidade INT NOT NULL
+);
+
+CREATE TABLE pedidos (
+    pedidoID INT AUTO_INCREMENT PRIMARY KEY,
+    cliente_id INT NOT NULL,
+    mesa_id INT NOT NULL,
+    data_pedido DATETIME DEFAULT CURRENT_TIMESTAMP,
+    total DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (cliente_id) REFERENCES clientes(clienteID),
+    FOREIGN KEY (mesa_id) REFERENCES mesas(mesaID)
+);
+
+CREATE TABLE itens_pedido (
+    itemID INT AUTO_INCREMENT PRIMARY KEY,
+    pedidoID INT NOT NULL,
+    descricao VARCHAR(255) NOT NULL,
+    quantidade INT NOT NULL,
+    preco DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (pedidoID) REFERENCES pedidos(pedidoID)
+);
+
+INSERT INTO clientes (nome, telefone, email) VALUES
+('João Silva', '11987654321', 'joao@example.com'),
+('Maria Oliveira', '11912345678', 'maria@example.com'),
+('Pedro Santos', '11923456789', 'pedro@example.com');
+
+INSERT INTO mesas (numero_mesa, capacidade) VALUES
+(1, 4),
+(2, 2),
+(3, 6),
+(4, 8);
+
+INSERT INTO pedidos (cliente_id, mesa_id, total) VALUES
+(1, 1, 150.00),
+(2, 2, 75.00),
+(3, 3, 120.00);
+
+INSERT INTO itens_pedido (pedidoID, descricao, quantidade, preco) VALUES
+(1, 'Pizza Margherita', 2, 50.00),
+(1, 'Cerveja', 3, 10.00),
+(2, 'Hambúrguer', 1, 25.00),
+(2, 'Refrigerante', 2, 5.00),
+(3, 'Macarrão ao Alho e Óleo', 2, 40.00),
+(3, 'Salada Caesar', 1, 30.00);
+
+SELECT * FROM clientes;
+
+SELECT * FROM mesas;
+
+SELECT * FROM pedidos;
+
+SELECT * FROM itens_pedido;
+
+SELECT 
+    p.pedidoID, 
+    c.nome AS cliente_nome, 
+    m.numero_mesa, 
+    p.data_pedido, 
+    p.total 
+FROM 
+    pedidos p
+JOIN 
+    clientes c ON p.cliente_id = c.clienteID
+JOIN 
+    mesas m ON p.mesa_id = m.mesaID;
+
+SELECT 
+    ip.itemID, 
+    p.pedidoID, 
+    ip.descricao, 
+    ip.quantidade, 
+    ip.preco 
+FROM 
+    itens_pedido ip
+JOIN 
+    pedidos p ON ip.pedidoID = p.pedidoID;
+
+UPDATE clientes
+SET telefone = '11999999999', email = 'joao.novo@example.com'
+WHERE clienteID = 1;
+
+UPDATE mesas
+SET capacidade = 4
+WHERE mesaID = 2;
+
+DELETE FROM itens_pedido
+WHERE pedidoID = 1;
+
+DELETE FROM pedidos
+WHERE pedidoID = 1;
