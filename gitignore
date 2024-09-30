@@ -1,0 +1,13 @@
+# Ignorar arquivos de banco de dados
+*.sql
+
+# Ignorar arquivos temporários
+*.tmp
+*.log
+
+# Ignorar diretórios específicos
+/.idea/
+*.iml
+
+# Ignorar arquivos de backup
+*~
